@@ -193,35 +193,34 @@ function loadLogs() {
     document.getElementById('container').classList.remove('hidden');
     document.querySelector('.header').classList.remove('hidden');
     document.getElementById('help').classList.remove('hidden');
-    console.log(fileInfoSpan); //.text = fileInput.files[0].name;
-    fileInfoSpan.textContent = fileInput.files[0].name + ' (' + humanFileSize(fileInput.files[0].size) + ') ';
-    if (fileInput.files.length > 0) {        
-        const reader = new FileReader();
-        reader.addEventListener('load', (event) => {            
-            const { plotBands, temps, data} = processLog(event.target.result);
-            chart.series[0].setData(data);
-            for (let i=chart.series.length-1; i > 0; i--) {
-                chart.series[i].remove();
-            }
-            for (const key in temps) {
-                chart.addSeries({
-                    type: 'spline',
-                    data: temps[key],
-                    name: key,
-                    yAxis: 1,
-                    visible: false,
-                    valueSuffix: '&deg;C',
-                    marker: { enabled: false },
-                }, false)
-            }
-            chart.xAxis[0].plotLinesAndBands.forEach(pb => chart.xAxis[0].removePlotBand(pb));
-            chart.xAxis[0].plotLinesAndBands.forEach(pb => chart.xAxis[0].removePlotBand(pb));
-            plotBands.forEach(pb => chart.xAxis[0].addPlotBand(pb, false));
-            chart.redraw();
-            
-        });
-        reader.readAsText(fileInput.files[0]);
-    }
+    fileInfoSpan.textContent = file.name + ' (' + humanFileSize(file.size) + ') ';
+        
+    const reader = new FileReader();
+    reader.addEventListener('load', (event) => {            
+        const { plotBands, temps, data} = processLog(event.target.result);
+        chart.series[0].setData(data);
+        for (let i=chart.series.length-1; i > 0; i--) {
+            chart.series[i].remove();
+        }
+        for (const key in temps) {
+            chart.addSeries({
+                type: 'spline',
+                data: temps[key],
+                name: key,
+                yAxis: 1,
+                visible: false,
+                valueSuffix: '&deg;C',
+                marker: { enabled: false },
+            }, false)
+        }
+        chart.xAxis[0].plotLinesAndBands.forEach(pb => chart.xAxis[0].removePlotBand(pb));
+        chart.xAxis[0].plotLinesAndBands.forEach(pb => chart.xAxis[0].removePlotBand(pb));
+        plotBands.forEach(pb => chart.xAxis[0].addPlotBand(pb, false));
+        chart.redraw();
+        
+    });
+    reader.readAsText(file);
+
 };
 
 //selecting all required elements
