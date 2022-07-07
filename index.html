@@ -1,0 +1,26 @@
+<html>
+    <title>Klipper Probe Plotter</title>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ProbePlotter</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="drag-area">
+        <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+        <header>Drag & Drop to Upload File</header>
+        <span>OR</span>
+        <button>Browse File</button>
+        <input type="file" id="log_file" hidden>
+      </div>
+    <div id="container" class="hidden"></div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="index.js"></script>
+  </body>
+</html>
