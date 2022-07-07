@@ -1,17 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@200;300;400;500;600;700&display=swap');
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Play", sans-serif;
 }
 body{
   min-height: 100vh;
-  background: #5256ad;
 }
+
+#help {
+        font-style: italic
+}
+
 .drag-area{
   margin: auto;
-  border: 2px dashed #fff;
+  border: 2px dashed #333;
   height: 500px;
   width: 700px;
   border-radius: 5px;
@@ -21,21 +25,21 @@ body{
   flex-direction: column;
 }
 .drag-area.active{
-  border: 2px solid #fff;
+  border: 2px solid #333;
 }
 .drag-area .icon{
   font-size: 100px;
-  color: #fff;
+  color: #333;
 }
 .drag-area header{
   font-size: 30px;
   font-weight: 500;
-  color: #fff;
+  color: #333;
 }
 .drag-area span{
   font-size: 25px;
   font-weight: 500;
-  color: #fff;
+  color: #333;
   margin: 10px 0 15px 0;
 }
 .drag-area button{
@@ -44,8 +48,8 @@ body{
   font-weight: 500;
   border: none;
   outline: none;
-  background: #fff;
-  color: #5256ad;
+  background: #333;
+  color: #fff;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -66,4 +70,24 @@ body{
 table.tooltip {
     white-space: nowrap;
     font-size: 10pt;
+}
+
+.header {
+    padding: 1em;
+    text-align: right;
+    vertical-align: baseline;
+}
+
+.header button {
+    padding: 1em;
+    font-weight: bolder;
+}
+
+#pageheader {
+    background: #333;
+    color: #fff;
+    font-size: 20;
+    font-weight: bold;
+    padding: 1em;
+    margin-bottom: 1em;
 }

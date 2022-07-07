@@ -12,14 +12,28 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <div id="pageheader">
+        Klipper Probe Graphs
+    </div>
+
     <div class="drag-area">
+        <header>Upload klippy.log</header>
         <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-        <header>Drag & Drop to Upload File</header>
+        <header>Drag & Drop</header>
         <span>OR</span>
         <button>Browse File</button>
         <input type="file" id="log_file" hidden>
-      </div>
+    </div>
+
+    <div class="header hidden">
+      <span id="fileinfo"></span>
+      <button type="button" id="clearfile">Clear File</button>  
+    </div>
     <div id="container" class="hidden"></div>
+    <div id="help" class="hidden">
+        * Click and drag to zoom in
+    </div>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="index.js"></script>
   </body>

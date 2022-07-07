@@ -8,10 +8,46 @@
  * Fires on chart load, called from the chart.events.load option.
  */
 
+/**
+ * Format bytes as human-readable text.
+ * 
+ * @param bytes Number of bytes.
+ * @param si True to use metric (SI) units, aka powers of 1000. False to use 
+ *           binary (IEC), aka powers of 1024.
+ * @param dp Number of decimal places to display.
+ * 
+ * @return Formatted string.
+ */
+ function humanFileSize(bytes, si=false, dp=1) {
+    const thresh = si ? 1000 : 1024;
+  
+    if (Math.abs(bytes) < thresh) {
+      return bytes + ' B';
+    }
+  
+    const units = si 
+      ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'] 
+      : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+    let u = -1;
+    const r = 10**dp;
+  
+    do {
+      bytes /= thresh;
+      ++u;
+    } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
+  
+  
+    return bytes.toFixed(dp) + ' ' + units[u];
+  }
 
  const options = {
     chart: {
-        zoomType: 'x'
+        zoomType: 'x',
+    },
+    labels: {
+        style: {
+            color: '#ffffff'
+        }
     },
     xAxis: {
         plotBands: [],
@@ -20,7 +56,7 @@
         },       
     },
     title: {
-        text: 'Klipper Probe Plotter'
+        text: ''
     },
     credits: {
         enabled: false
@@ -110,7 +146,7 @@ function processLog(log) {
                 color: (plotBands.length % 2 == 0 ? '#EFFFFF' : '#FFFFEF'),
                 extra: pa,
                 borderWidth: 1,
-                borderColor: '#000000',
+                borderColor: '#ffffff',
             });
             return;
         }
@@ -142,9 +178,23 @@ function processLog(log) {
 
 const chart = Highcharts.chart('container', options);
 const fileInput = document.getElementById('log_file');
+const fileInfoSpan = document.querySelector('#fileinfo');
+const clearButton = document.querySelector('#clearfile');
+clearButton.addEventListener('click', function () {
+    fileInput.value = null;
+    document.querySelector('#container').classList.add('hidden');
+    document.querySelector('.header').classList.add('hidden');
+    document.querySelector('#help').classList.add('hidden');
+    document.querySelector('.drag-area').classList.remove('hidden');
+});
 function loadLogs() {
+    
     document.querySelector('.drag-area').classList.add('hidden');
     document.getElementById('container').classList.remove('hidden');
+    document.querySelector('.header').classList.remove('hidden');
+    document.getElementById('help').classList.remove('hidden');
+    console.log(fileInfoSpan); //.text = fileInput.files[0].name;
+    fileInfoSpan.textContent = fileInput.files[0].name + ' (' + humanFileSize(fileInput.files[0].size) + ') ';
     if (fileInput.files.length > 0) {        
         const reader = new FileReader();
         reader.addEventListener('load', (event) => {            
